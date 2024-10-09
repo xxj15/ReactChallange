@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>🔥 Calculator 🔥</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <style>
+      body {
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [amount2, setAmount2] = React.useState(0);
+      const [operator, setOperator] = React.useState("+");
+      const [result, setResult] = React.useState(null);
+
+      const onChange = (event) => {
+        setAmount(Number(event.target.value));
+      };
+      const onChange2 = (event) => {
+        setAmount2(Number(event.target.value));
+      };
+
+      const onOperatorChange = (event) => {
+        setOperator(event.target.value);
+      };
+
+      const calculate = () => {
+        let calcResult;
+        {
+          operator === "+" ? (calcResult = amount + amount2) : null;
+        }
+        {
+          operator === "-" ? (calcResult = amount - amount2) : null;
+        }
+        {
+          operator === "*" ? (calcResult = amount * amount2) : null;
+        }
+        {
+          operator === "/" ? (calcResult = amount / amount2) : null;
+        }
+
+        setResult(calcResult);
+      };
+
+      return (
+        <div className="container">
+          <h1>🔥 Calculator 🔥</h1>
+          <input value={amount} id="num1" type="number" onChange={onChange} />
+          <input value={amount2} id="num2" type="number" onChange={onChange2} />
+          <select value={operator} onChange={onOperatorChange}>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+          </select>
+          <button onClick={calculate}>Calculate</button>
+
+          {result !== null && (
+            <div>
+              <p>The result is : {result}</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
